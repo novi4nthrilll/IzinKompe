@@ -1,8 +1,13 @@
 package com.izinkompe.ui
 
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.izinkompe.receiver.AdminReceiver
 import androidx.lifecycle.lifecycleScope
 import com.izinkompe.IzinKompeApp
 import com.izinkompe.R
@@ -45,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         updateStatus()
+        updateDeviceAdminStatus()
     }
 
     private fun setupUI() {
@@ -67,6 +73,11 @@ class MainActivity : AppCompatActivity() {
             requireOtpIfSessionActive {
                 startActivity(Intent(this, PairingActivity::class.java))
             }
+        }
+
+        // Manage Device Admin
+        binding.cardDeviceAdmin.setOnClickListener {
+            handleDeviceAdminClick()
         }
 
         // Toggle service
@@ -163,7 +174,58 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleDeviceAdminClick() {
+        val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val adminComponent = ComponentName(this, AdminReceiver::class.java)
+
+        if (!dpm.isAdminActive(adminComponent)) {
+            // Activate Device Admin
+            val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN).apply {
+                putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, adminComponent)
+                putExtra(
+                    DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                    "Aktifkan proteksi Device Admin agar aplikasi tidak bisa di-uninstall selama sesi belajar."
+                )
+            }
+            startActivity(intent)
+        } else {
+            // Deactivate requires parent's OTP verification
+            showOtpDialogForAction(
+                "Masukkan kode OTP dari orang tua untuk menonaktifkan proteksi anti-uninstall."
+            ) {
+                com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                    .setTitle("Konfirmasi Nonaktifkan")
+                    .setMessage("Apakah Anda yakin ingin menonaktifkan proteksi anti-uninstall? Aplikasi dapat di-uninstall setelah proteksi dimatikan.")
+                    .setPositiveButton("Nonaktifkan") { _, _ ->
+                        dpm.removeActiveAdmin(adminComponent)
+                        updateDeviceAdminStatus()
+                        Toast.makeText(this, "Proteksi Anti-Uninstall dinonaktifkan", Toast.LENGTH_SHORT).show()
+                    }
+                    .setNegativeButton("Batal", null)
+                    .show()
+            }
+        }
+    }
+
+    private fun updateDeviceAdminStatus() {
+        val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val adminComponent = ComponentName(this, AdminReceiver::class.java)
+        val isActive = dpm.isAdminActive(adminComponent)
+
+        binding.tvDeviceAdminStatus.text = if (isActive) "✓ Aktif" else "Tidak aktif"
+        binding.tvDeviceAdminStatus.setTextColor(
+            if (isActive) getColor(R.color.status_active) else getColor(R.color.status_inactive)
+        )
+    }
+
     private fun showOtpDialog(onSuccess: () -> Unit) {
+        showOtpDialogForAction(
+            "Sesi belajar sedang berlangsung. Masukkan kode OTP dari orang tua untuk mengubah pengaturan.",
+            onSuccess
+        )
+    }
+
+    private fun showOtpDialogForAction(message: String, onSuccess: () -> Unit) {
         val input = android.widget.EditText(this).apply {
             inputType = android.text.InputType.TYPE_CLASS_NUMBER
             hint = "Kode OTP 6 Digit"
@@ -172,20 +234,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle("Pengaturan Terkunci")
-            .setMessage("Sesi belajar sedang berlangsung. Masukkan kode OTP dari orang tua untuk mengubah pengaturan.")
+            .setTitle("Verifikasi Orang Tua")
+            .setMessage(message)
             .setView(input)
-            .setPositiveButton("Buka Kunci") { _, _ ->
+            .setPositiveButton("Verifikasi") { _, _ ->
                 val code = input.text.toString().trim()
                 lifecycleScope.launch {
                     val secret = app.preferences.getTotpSecretOnce()
                     if (!secret.isNullOrEmpty() && com.izinkompe.util.TotpUtil.verifyCode(secret, code)) {
                         // Grant 15 minutes unlock
                         app.preferences.setUnlockUntil(System.currentTimeMillis() + 15 * 60 * 1000L)
-                        android.widget.Toast.makeText(this@MainActivity, "Akses diizinkan (15 menit)", android.widget.Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, "Verifikasi berhasil ✓", Toast.LENGTH_SHORT).show()
                         onSuccess()
                     } else {
-                        android.widget.Toast.makeText(this@MainActivity, "Kode OTP salah!", android.widget.Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, "Kode OTP salah!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

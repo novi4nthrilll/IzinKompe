@@ -15,7 +15,7 @@ Implementasi ini dibangun secara presisi mengikuti panduan di `Panduan Membuat A
 | 3 | **Deteksi Foreground App** | ✅ Selesai | `UsageStatsManager` polling (800ms) dari Foreground Service (`AppMonitorService.kt`), mendeteksi event `ACTIVITY_RESUMED` secara efisien dan hemat baterai. |
 | 4 | **Blokir Aplikasi (Lock Screen)** | ✅ Selesai | `LockActivity` fullscreen overlay dengan permission `SYSTEM_ALERT_WINDOW`, menolak tombol back, dan notifikasi permanen Foreground Service. |
 | 5 | **Buka Kunci Lewat OTP (TOTP)** | ✅ Selesai | TOTP lokal offline (RFC 6238) kompatibel dengan Google Authenticator. Tampilan QR code (`ZXing`) di `PairingActivity`. Buka kunci sementara 15 menit dengan auto-relock. |
-| 6 | **Pengamanan Selama Sesi** | ✅ Selesai | `DeviceAdminReceiver` mencegah uninstalasi aplikasi; pemblokiran Settings sistem (`com.android.settings`); dan gate dialog OTP saat membuka pengaturan di aplikasi jika sesi belajar aktif. |
+| 6 | **Pengamanan Selama Sesi** | ✅ Selesai | `DeviceAdminReceiver` anti-uninstalasi dengan fitur aktivasi/deaktivasi via gate OTP orang tua di dalam aplikasi; pemblokiran Settings sistem (`com.android.settings`); dan gate dialog OTP saat membuka pengaturan di aplikasi jika sesi belajar aktif. |
 | 7 | **Keandalan Background** | ✅ Selesai | `BootReceiver` (`RECEIVE_BOOT_COMPLETED`, `QUICKBOOT_POWERON`) untuk otomatis menyalakan service setelah reboot, WakeLock terkelola, dan panduan abaikan optimasi baterai. |
 | 8 | **5 Layar Minimal MVP** | ✅ Selesai | Onboarding (`OnboardingActivity`), Pilih App (`AppListActivity`), Jadwal (`ScheduleActivity`), Layar Kunci (`LockActivity`), Pairing OTP (`PairingActivity`), plus Dashboard Utama (`MainActivity`). |
 
