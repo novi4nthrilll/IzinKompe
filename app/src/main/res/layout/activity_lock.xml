@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_lock_screen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="32dp">
+
+        <!-- Lock Icon -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔒"
+            android:textSize="72sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lock_title"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Message -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lock_message"
+            android:textSize="14sp"
+            android:textColor="#B3FFFFFF"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Blocked App Name -->
+        <TextView
+            android:id="@+id/tvBlockedApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/accent"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <!-- OTP Input -->
+        <EditText
+            android:id="@+id/etOtp"
+            android:layout_width="240dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_otp_input"
+            android:hint="@string/lock_otp_hint"
+            android:textColorHint="#66FFFFFF"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:letterSpacing="0.3"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="6"
+            android:layout_marginBottom="16dp"
+            android:importantForAutofill="no" />
+
+        <!-- Status message -->
+        <TextView
+            android:id="@+id/tvOtpStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/status_warning"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Verify Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerifyOtp"
+            android:layout_width="240dp"
+            android:layout_height="52dp"
+            android:text="@string/btn_verify_otp"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/accent"
+            android:layout_marginBottom="16dp"
+            app:cornerRadius="12dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+        <!-- Unlock timer info -->
+        <TextView
+            android:id="@+id/tvUnlockTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#66FFFFFF"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</FrameLayout>

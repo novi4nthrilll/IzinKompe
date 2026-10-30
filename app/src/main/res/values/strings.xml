@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IzinKompe</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Selamat Datang di IzinKompe</string>
+    <string name="onboarding_desc">Bantu anak fokus belajar dengan mengunci aplikasi yang mengganggu selama jam belajar.</string>
+    <string name="btn_grant_usage_access">Izinkan Usage Access</string>
+    <string name="btn_grant_overlay">Izinkan Overlay</string>
+    <string name="btn_grant_device_admin">Aktifkan Device Admin</string>
+    <string name="btn_grant_notification">Izinkan Notifikasi</string>
+    <string name="btn_ignore_battery">Matikan Optimasi Baterai</string>
+    <string name="btn_continue">Lanjutkan</string>
+    <string name="btn_start">Mulai</string>
+    <string name="permission_granted">✓ Diberikan</string>
+    <string name="permission_not_granted">Belum diberikan</string>
+
+    <!-- App List -->
+    <string name="app_list_title">Pilih Aplikasi untuk Dikunci</string>
+    <string name="app_list_search_hint">Cari aplikasi…</string>
+    <string name="app_list_empty">Tidak ada aplikasi ditemukan</string>
+    <string name="app_selected_count">%d aplikasi dipilih</string>
+    <string name="btn_save">Simpan</string>
+
+    <!-- Schedule -->
+    <string name="schedule_title">Atur Jadwal Belajar</string>
+    <string name="schedule_start_time">Jam Mulai</string>
+    <string name="schedule_end_time">Jam Selesai</string>
+    <string name="schedule_days">Hari Aktif</string>
+    <string name="schedule_active">Jadwal Aktif</string>
+    <string name="schedule_inactive">Jadwal Nonaktif</string>
+    <string name="btn_save_schedule">Simpan Jadwal</string>
+
+    <!-- Days of week -->
+    <string name="day_monday">Senin</string>
+    <string name="day_tuesday">Selasa</string>
+    <string name="day_wednesday">Rabu</string>
+    <string name="day_thursday">Kamis</string>
+    <string name="day_friday">Jumat</string>
+    <string name="day_saturday">Sabtu</string>
+    <string name="day_sunday">Minggu</string>
+
+    <!-- Lock Screen -->
+    <string name="lock_title">🔒 Jam Belajar Aktif</string>
+    <string name="lock_message">Aplikasi ini dikunci selama jam belajar.\nMinta kode OTP dari orang tua untuk membuka.</string>
+    <string name="lock_otp_hint">Masukkan kode OTP 6 digit</string>
+    <string name="btn_verify_otp">Verifikasi</string>
+    <string name="otp_incorrect">Kode OTP salah, coba lagi.</string>
+    <string name="otp_correct">Berhasil! Aplikasi dibuka selama 15 menit.</string>
+    <string name="lock_unlocked_until">Dibuka sampai %s</string>
+
+    <!-- Pairing -->
+    <string name="pairing_title">Pairing dengan Orang Tua</string>
+    <string name="pairing_instruction">Scan QR code ini menggunakan Google Authenticator atau aplikasi TOTP lainnya di HP orang tua.</string>
+    <string name="pairing_secret">Secret Key: %s</string>
+    <string name="btn_generate_new">Generate QR Baru</string>
+    <string name="btn_verify_pairing">Verifikasi Pairing</string>
+    <string name="pairing_success">Pairing berhasil! ✓</string>
+    <string name="pairing_failed">Kode tidak cocok, coba lagi.</string>
+
+    <!-- Service -->
+    <string name="service_notification_title">IzinKompe Aktif</string>
+    <string name="service_notification_text">Memantau aplikasi selama jam belajar</string>
+    <string name="service_channel_name">IzinKompe Monitor</string>
+    <string name="service_channel_desc">Notifikasi untuk layanan pemantauan aplikasi</string>
+
+    <!-- Main -->
+    <string name="main_status_active">🟢 Jadwal Aktif</string>
+    <string name="main_status_inactive">⚪ Jadwal Tidak Aktif</string>
+    <string name="main_locked_apps">Aplikasi Terkunci</string>
+    <string name="main_schedule">Jadwal Belajar</string>
+    <string name="main_pairing">Pairing Orang Tua</string>
+    <string name="main_settings">Pengaturan</string>
+    <string name="main_no_apps">Belum ada aplikasi yang dikunci</string>
+    <string name="main_no_schedule">Belum ada jadwal belajar</string>
+
+    <!-- General -->
+    <string name="cancel">Batal</string>
+    <string name="ok">OK</string>
+    <string name="error">Terjadi kesalahan</string>
+</resources>
