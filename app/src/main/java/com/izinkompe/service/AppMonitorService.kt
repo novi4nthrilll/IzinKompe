@@ -80,9 +80,9 @@ class AppMonitorService : Service() {
                 try {
                     // Get current schedule
                     val schedule = db.scheduleDao().getScheduleOnce()
-                    val isActive = ScheduleChecker.isSessionActive(schedule)
+                    val isSessionActive = ScheduleChecker.isSessionActive(schedule)
 
-                    if (isActive) {
+                    if (isSessionActive) {
                         // Check if temporarily unlocked
                         val isUnlocked = prefs.isCurrentlyUnlocked()
                         if (!isUnlocked) {

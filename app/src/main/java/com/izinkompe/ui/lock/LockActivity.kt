@@ -1,5 +1,6 @@
 package com.izinkompe.ui.lock
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -38,7 +39,32 @@ class LockActivity : AppCompatActivity() {
         val blockedPackage = intent.getStringExtra(EXTRA_BLOCKED_PACKAGE) ?: ""
         showBlockedAppName(blockedPackage)
         setupVerifyButton()
+        setupHomeButton()
+        setupBackPress()
         checkUnlockStatus()
+    }
+
+    private fun setupHomeButton() {
+        binding.btnGoHome.setOnClickListener {
+            goToHomeScreen()
+        }
+    }
+
+    private fun setupBackPress() {
+        onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                goToHomeScreen()
+            }
+        })
+    }
+
+    private fun goToHomeScreen() {
+        val homeIntent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        startActivity(homeIntent)
+        finish()
     }
 
     private fun showBlockedAppName(packageName: String) {
@@ -123,6 +149,6 @@ class LockActivity : AppCompatActivity() {
     // Prevent back button from dismissing the lock screen
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        // Do nothing — prevent dismissing lock screen
+        goToHomeScreen()
     }
 }

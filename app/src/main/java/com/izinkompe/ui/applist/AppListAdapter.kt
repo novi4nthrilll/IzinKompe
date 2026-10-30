@@ -9,13 +9,13 @@ import com.izinkompe.data.model.AppInfo
 import com.izinkompe.databinding.ItemAppBinding
 
 class AppListAdapter(
-    private val onCheckedChanged: (Int, Boolean) -> Unit
+    private val onCheckedChanged: (AppInfo, Boolean) -> Unit
 ) : ListAdapter<AppInfo, AppListAdapter.AppViewHolder>(AppDiffCallback()) {
 
     inner class AppViewHolder(private val binding: ItemAppBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(appInfo: AppInfo, position: Int) {
+        fun bind(appInfo: AppInfo) {
             binding.tvAppName.text = appInfo.appName
             binding.tvPackageName.text = appInfo.packageName
             binding.ivAppIcon.setImageDrawable(appInfo.icon)
@@ -25,7 +25,8 @@ class AppListAdapter(
             binding.cbSelected.isChecked = appInfo.isSelected
 
             binding.cbSelected.setOnCheckedChangeListener { _, isChecked ->
-                onCheckedChanged(position, isChecked)
+                appInfo.isSelected = isChecked
+                onCheckedChanged(appInfo, isChecked)
             }
 
             // Clicking the whole row toggles the checkbox
@@ -43,7 +44,7 @@ class AppListAdapter(
     }
 
     override fun onBindViewHolder(holder: AppViewHolder, position: Int) {
-        holder.bind(getItem(position), position)
+        holder.bind(getItem(position))
     }
 
     class AppDiffCallback : DiffUtil.ItemCallback<AppInfo>() {

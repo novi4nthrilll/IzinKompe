@@ -46,8 +46,8 @@ class AppListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = AppListAdapter { position, isChecked ->
-            allApps[position].isSelected = isChecked
+        adapter = AppListAdapter { appInfo, isChecked ->
+            appInfo.isSelected = isChecked
             updateSelectedCount()
         }
         binding.rvApps.layoutManager = LinearLayoutManager(this)

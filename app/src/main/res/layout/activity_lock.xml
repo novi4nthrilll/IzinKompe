@@ -89,9 +89,21 @@
             android:textSize="16sp"
             android:textAllCaps="false"
             android:backgroundTint="@color/accent"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             app:cornerRadius="12dp"
             xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+        <!-- Go Home Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoHome"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:text="Kembali ke Beranda"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:textColor="#B3FFFFFF"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_marginBottom="16dp" />
 
         <!-- Unlock timer info -->
         <TextView
